@@ -6,17 +6,30 @@
 # Purpose: Tic Tac Toe Game
 """
 
+import board
+import random
+
 
 def main():
     pass
 
     # Initialize a new tictactoe board
+    b = board.Board()
+    print(b)
+
     # Determine which player goes first
+    coin = random.randint(0, 1)
+    print(coin)
 
     # Set gamestate to PLAYING
+    playing = True
 
+    exit()
     # Game loop
+    while playing:
+
         # Display the board
+        print(b)
         # If it is the computer's turn, let them compute the best move
         # If it is the human's turn, let them choose a move.
 
