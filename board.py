@@ -42,38 +42,37 @@ class Board():
         # If one is found, it returns the symbol with the win.
         # using a counting method: 'o' = +1, 'x' = -1
 
-        length = int(math.sqrt(len(self.board)))
         dndg_ct, updg_ct = 0, 0
         counts = []
 
-        for x in range(length):
+        for x in range(self.length):
             col_ct, row_ct = 0, 0
 
-            for y in range(length):
+            for y in range(self.length):
                 # Check column
-                col = x + length * y
+                col = x + self.length * y
                 col_ct += SYMBOLS.get(self.board[col], 0)
 
                 # Check row
-                row = length * x + y
+                row = self.length * x + y
                 row_ct += SYMBOLS.get(self.board[row], 0)
             counts.append(row_ct)
             counts.append(col_ct)
 
             # Check downward diagnonal
-            dndg = x * (length + 1)
+            dndg = x * (self.length + 1)
             dndg_ct += SYMBOLS.get(self.board[dndg], 0)
 
             # Check upward diagnonal
-            start = length * (length - 1)
-            updg = start - x * (length - 1)
+            start = self.length * (self.length - 1)
+            updg = start - x * (self.length - 1)
             updg_ct += SYMBOLS.get(self.board[updg], 0)
             counts.append(updg_ct)
             counts.append(dndg_ct)
 
-        if length in counts:
+        if self.length in counts:
             return 'o'
-        elif -length in counts:
+        elif -self.length in counts:
             return 'x'
 
         return None
