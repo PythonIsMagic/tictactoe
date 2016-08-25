@@ -47,12 +47,9 @@ def main():
         # If it is the computer's turn, let them compute the best move
         elif player == 1:
             print('CPU is thinking...')
-
-            while True:
-                move = random.randint(0, len(b) - 1)
-                if b.play(move, 'o'):
-                    print('The CPU played on spot {}'.format(move))
-                    break
+            move = random.choice(b.get_available_spaces())
+            if b.play(move, 'o'):
+                print('The CPU played on spot {}'.format(move))
         else:
             print('Player selection error! Aborting!!!!!')
             exit()
@@ -63,6 +60,9 @@ def main():
         # CPU wins, Human wins, Tie, or in progress.
         if state == 'o' or state == 'x':
             print('{} wins!'.format(state))
+            exit()
+        elif len(b.get_available_spaces()) == 0:
+            print('Sorry the game is tied! Ending.')
             exit()
 
         # Change players
