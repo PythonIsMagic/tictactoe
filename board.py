@@ -22,12 +22,15 @@ class Board():
     def __len__(self):
         return len(self.board)
 
+    def occupied(self, index):
+        return self.board[index] in ['x', 'o']
+
     def play(self, i, piece):
         if i < 0 or i >= len(self.board):
             print('The index  is out of bounds!')
             return False
 
-        if self.board[i] in ['x', 'o']:
+        if self.occupied(i):
             print('Spot #{} is already played on!'.format(i))
             return False
 
@@ -76,4 +79,4 @@ class Board():
         return None
 
     def get_available_spaces(self):
-        pass
+        return [i for i in range(len(self)) if not self.occupied(i)]
