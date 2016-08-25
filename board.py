@@ -77,3 +77,6 @@ class Board():
 
         # If none are found, it returns None.
         return None
+
+    def get_available_spaces(self):
+        pass

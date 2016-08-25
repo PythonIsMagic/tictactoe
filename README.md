@@ -4,19 +4,22 @@ Python Tic Tac Toe Game
 Author: Erik Lunna
 Date Started: 04-04-16
 
-Goal: Create a simple working tic tac toe game that plays
-vs a smart playing computer. Implement a text version, then
-a GUI mouse clickable version.
+Goal: Create a simple working tic tac toe game that plays vs a smart playing
+computer. Implement a text version, then a GUI mouse clickable version.
 
 The Todo List
 -----------------
-* Create git repo
-* Create pseudocode outline of main gameloop 
-* Create pseudocode outline of player class
-* Create pseudocode outline of board class
+todo: Make an intelligent CPU AI to determine moves
+todo: Board.get_available_spaces()
+todo: Board.get_best_move()
 
 The Done List
 -----------------
+done: Create git repo
+done: Create pseudocode outline of main gameloop 
+done: Create pseudocode outline of player class
+done: Create pseudocode outline of board class
+
 
 
 # Original menu
@@ -26,6 +29,10 @@ cout << "2) One-player game vs smart computer. (Under construction)" << endl;
 cout << "3) Two-player game." << endl;
 cout << "4) CPU vs. CPU (** Not yet implemented)" << endl;
 
+
+
+    def get_best_move(self):
+        pass
 
 // Move Value System
 // First we scan the board for all the free spaces
