@@ -85,3 +85,33 @@ class Board():
 
     def what_col(self, index):
         return index % self.length
+
+    def get_col(self, spot):
+        x = self.what_row(spot)
+        return [(x + self.length * i) for i in range(self.length)]
+
+    def get_row(self, spot):
+        y = self.what_row(spot)
+        return [(self.length * y + i) for i in range(self.length)]
+
+    def get_up_diagonal(self):
+        return [(x * (self.length + 1)) for x in range(self.length)]
+
+    def get_dn_diagonal(self):
+        start = self.length * (self.length - 1)
+        return [(start - x * (self.length - 1)) for x in range(self.length)]
+
+    def get_diagonal_spots(self):
+        diag_nums = []
+        return diag_nums
+
+    def get_diagonal(self, spot):
+        if spot in self.get_up_diagonal():
+            return self.get_up_diagonal()
+        if spot in self.get_dn_diagonal():
+            return self.get_dn_diagonal()
+
+            return None
+
+    def score_move(self, move):
+        pass

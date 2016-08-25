@@ -10,7 +10,6 @@ computer. Implement a text version, then a GUI mouse clickable version.
 The Todo List
 -----------------
 todo: Make an intelligent CPU AI to determine moves
-todo: Board.get_available_spaces()
 todo: Board.get_best_move()
 
 The Done List
@@ -19,6 +18,7 @@ done: Create git repo
 done: Create pseudocode outline of main gameloop 
 done: Create pseudocode outline of player class
 done: Create pseudocode outline of board class
+done: Board.get_available_spaces()
 
 
 
