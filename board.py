@@ -79,3 +79,9 @@ class Board():
 
     def get_available_spaces(self):
         return [i for i in range(len(self)) if not self.occupied(i)]
+
+    def what_row(self, index):
+        return index / self.length
+
+    def what_col(self, index):
+        return index % self.length
