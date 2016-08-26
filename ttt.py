@@ -47,7 +47,8 @@ def main():
         # If it is the computer's turn, let them compute the best move
         elif player == 1:
             print('CPU is thinking...')
-            move = random.choice(b.get_available_spaces())
+            #  move = random.choice(b.get_available_spaces())
+            move = b.best_move('o')
             if b.play(move, 'o'):
                 print('The CPU played on spot {}'.format(move))
         else:

@@ -1,5 +1,6 @@
 from __future__ import print_function
 import math
+import operator
 
 PLACEHOLDER = '.'
 SYMBOLS = {'o': 1, 'x': -1}
@@ -9,6 +10,9 @@ class Board():
     def __init__(self, size=3):
         self.board = [x for x in range(size ** 2)]
         self.length = int(math.sqrt(len(self.board)))
+        self.up_diag = [(x * (self.length + 1)) for x in range(self.length)]
+        start = self.length * (self.length - 1)
+        self.dn_diag = [(start - x * (self.length - 1)) for x in range(self.length)]
 
     def __str__(self):
         _str = ''
@@ -80,38 +84,74 @@ class Board():
     def get_available_spaces(self):
         return [i for i in range(len(self)) if not self.occupied(i)]
 
-    def what_row(self, index):
-        return index / self.length
+    def get_col(self, move):
+        x = move % self.length
+        col = [(x + self.length * i) for i in range(self.length)]
+        return [self.board[i] for i in col]
 
-    def what_col(self, index):
-        return index % self.length
+    def get_row(self, move):
+        y = move / self.length
+        row = [(self.length * y + i) for i in range(self.length)]
+        return [self.board[i] for i in row]
 
-    def get_col(self, spot):
-        x = self.what_row(spot)
-        return [(x + self.length * i) for i in range(self.length)]
+    def get_up_diag(self):
+        return [self.board[i] for i in self.up_diag]
 
-    def get_row(self, spot):
-        y = self.what_row(spot)
-        return [(self.length * y + i) for i in range(self.length)]
+    def get_dn_diag(self):
+        return [self.board[i] for i in self.dn_diag]
 
-    def get_up_diagonal(self):
-        return [(x * (self.length + 1)) for x in range(self.length)]
+    def associated_lines(self, move):
+        lines = []
+        lines.append(self.get_row(move))
+        lines.append(self.get_col(move))
 
-    def get_dn_diagonal(self):
-        start = self.length * (self.length - 1)
-        return [(start - x * (self.length - 1)) for x in range(self.length)]
+        if move in self.up_diag:
+            lines.append(self.get_up_diag())
 
-    def get_diagonal_spots(self):
-        diag_nums = []
-        return diag_nums
+        if move in self.dn_diag:
+            lines.append(self.get_dn_diag())
 
-    def get_diagonal(self, spot):
-        if spot in self.get_up_diagonal():
-            return self.get_up_diagonal()
-        if spot in self.get_dn_diagonal():
-            return self.get_dn_diagonal()
+        return lines
 
-            return None
+    def score_move(self, move, symbol):
+        # Get all the lines associated with a move
+        # Check that the move isn't already occupied
 
-    def score_move(self, move):
-        pass
+        if self.occupied(move):
+            print('Spot #{} is already played on!'.format(move))
+            return -1
+
+        lines = self.associated_lines(move)
+        scores = [self.score_line(l, symbol) for l in lines]
+
+        print('Move {} is worth: {}'.format(move, sum(scores)))
+        return sum(scores)
+
+    def score_line(self, line, symbol):
+        if symbol == 'o':
+            opp = line.count('x')
+        else:
+            opp = line.count('o')
+
+        like = line.count(symbol)
+
+        if like == 2:
+            return 125
+        elif opp == 2:
+            return 100
+        elif opp == 1 and like == 1:
+            return 0
+        elif like == 1:
+            return 45
+        elif opp == 1:
+            return 40
+        else:
+            return 30
+
+    def best_move(self, symbol):
+        moves = {}
+        for m in self.get_available_spaces():
+            moves[m] = self.score_move(m, symbol)
+
+        # Return the move that corresponds to the highest value.
+        return max(moves.iteritems(), key=operator.itemgetter(1))[0]
