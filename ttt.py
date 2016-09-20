@@ -5,18 +5,22 @@
 # Date Created: Mon Apr  4 20:28:29 2016
 # Purpose: Tic Tac Toe Game
 """
-
 import board
 import random
 
 
-def main():
+class TicTacToe():
+    def __init__(self, size):
+        # Initialize a new tictactoe board
+        self.b = board.Board(size)
+
+
+def consolerun():
     print('Python Tic Tac Toe!')
     print('~'*40)
     print('CPU = \'o\' and human =\'x\'')
 
-    # Initialize a new tictactoe board
-    b = board.Board()
+    ttt = TicTacToe(size=3)
 
     # Determine which player goes first
     # HUMAN = 0, CPU = 1
@@ -35,11 +39,11 @@ def main():
     while playing:
         if player == 0:
             print('Go human...')
-            print(b)
+            print(ttt.b)
 
             while True:
                 move = input('>')
-                if b.play(int(move), 'x'):
+                if ttt.b.play(int(move), 'x'):
                     break
                 else:
                     print('invalid move, try again')
@@ -47,22 +51,23 @@ def main():
         # If it is the computer's turn, let them compute the best move
         elif player == 1:
             print('CPU is thinking...')
+
             #  move = random.choice(b.get_available_spaces())
-            move = b.best_move('o')
-            if b.play(move, 'o'):
+            move = ttt.b.best_move('o')
+            if ttt.b.play(move, 'o'):
                 print('The CPU played on spot {}'.format(move))
         else:
             print('Player selection error! Aborting!!!!!')
             exit()
 
         # Check the state of board
-        state = b.find_win()
+        state = ttt.b.find_win()
 
         # CPU wins, Human wins, Tie, or in progress.
         if state == 'o' or state == 'x':
             print('{} wins!'.format(state))
             exit()
-        elif len(b.get_available_spaces()) == 0:
+        elif len(ttt.b.get_available_spaces()) == 0:
             print('Sorry the game is tied! Ending.')
             exit()
 
@@ -71,4 +76,4 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    consolerun()
