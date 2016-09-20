@@ -124,7 +124,7 @@ class Board():
         lines = self.associated_lines(move)
         scores = [self.score_line(l, symbol) for l in lines]
 
-        print('Move {} is worth: {}'.format(move, sum(scores)))
+        #  print('Move {} is worth: {}'.format(move, sum(scores)))
         return sum(scores)
 
     def score_line(self, line, symbol):
