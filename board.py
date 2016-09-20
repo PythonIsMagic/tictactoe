@@ -91,7 +91,7 @@ class Board():
         return [self.board[i] for i in col]
 
     def get_row(self, move):
-        y = move / self.length
+        y = move // self.length
         row = [(self.length * y + i) for i in range(self.length)]
         return [self.board[i] for i in row]
 
