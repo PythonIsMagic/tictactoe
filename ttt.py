@@ -19,6 +19,13 @@ class TicTacToe():
         # HUMAN = 0, CPU = 1
         self.player = random.randint(0, 1)
 
+    def cpu_turn(self):
+        #  move = random.choice(b.get_available_spaces())
+        move = self.b.best_move('o')
+
+        if self.b.play(move, 'o'):
+            return move
+
 
 def consolerun():
     print('Python Tic Tac Toe!')
@@ -26,7 +33,7 @@ def consolerun():
     print('CPU = \'o\' and human =\'x\'')
 
     ttt = TicTacToe(size=3)
-
+    print('Player {} goes first'.format(ttt.player))
     print('~'*40)
 
     playing = True
@@ -46,12 +53,11 @@ def consolerun():
 
         # If it is the computer's turn, let them compute the best move
         elif ttt.player == 1:
+            # Run computer turn
             print('CPU is thinking...')
+            cpu_move = ttt.cpu_turn()
+            print('The CPU played on spot {}'.format(cpu_move))
 
-            #  move = random.choice(b.get_available_spaces())
-            move = ttt.b.best_move('o')
-            if ttt.b.play(move, 'o'):
-                print('The CPU played on spot {}'.format(move))
         else:
             print('Player selection error! Aborting!!!!!')
             exit()
