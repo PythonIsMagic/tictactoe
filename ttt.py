@@ -13,6 +13,11 @@ class TicTacToe():
     def __init__(self, size):
         # Initialize a new tictactoe board
         self.b = board.Board(size)
+        self.get_first()
+
+    def get_first(self):
+        # HUMAN = 0, CPU = 1
+        self.player = random.randint(0, 1)
 
 
 def consolerun():
@@ -22,22 +27,13 @@ def consolerun():
 
     ttt = TicTacToe(size=3)
 
-    # Determine which player goes first
-    # HUMAN = 0, CPU = 1
-    player = random.randint(0, 1)
-
-    print('Flipping the coin for first go....')
-    if player == 0:
-        print('The HUMAN goes first!')
-    else:
-        print('The CPU goes first!')
     print('~'*40)
 
     playing = True
 
     # Game loop
     while playing:
-        if player == 0:
+        if ttt.player == 0:
             print('Go human...')
             print(ttt.b)
 
@@ -49,7 +45,7 @@ def consolerun():
                     print('invalid move, try again')
 
         # If it is the computer's turn, let them compute the best move
-        elif player == 1:
+        elif ttt.player == 1:
             print('CPU is thinking...')
 
             #  move = random.choice(b.get_available_spaces())
@@ -72,7 +68,7 @@ def consolerun():
             exit()
 
         # Change players
-        player = (player + 1) % 2
+        ttt.player = (ttt.player + 1) % 2
 
 
 if __name__ == "__main__":
