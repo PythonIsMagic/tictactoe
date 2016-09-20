@@ -10,6 +10,7 @@ class Board():
     def __init__(self, size=3):
         self.board = [x for x in range(size ** 2)]
         self.length = int(math.sqrt(len(self.board)))
+
         self.up_diag = [(x * (self.length + 1)) for x in range(self.length)]
         start = self.length * (self.length - 1)
         self.dn_diag = [(start - x * (self.length - 1)) for x in range(self.length)]
@@ -125,6 +126,7 @@ class Board():
         scores = [self.score_line(l, symbol) for l in lines]
 
         #  print('Move {} is worth: {}'.format(move, sum(scores)))
+        # We sum the values to account for opportunity value, and other values as well.
         return sum(scores)
 
     def score_line(self, line, symbol):
@@ -136,16 +138,22 @@ class Board():
         like = line.count(symbol)
 
         if like == 2:
+            # Win value
             return 125
         elif opp == 2:
+            # Block value
             return 100
         elif opp == 1 and like == 1:
+            # No value
             return 0
         elif like == 1:
+            # Building value
             return 45
         elif opp == 1:
+            # Blocking value
             return 40
         else:
+            # Opportunity value
             return 30
 
     def best_move(self, symbol):
@@ -154,4 +162,4 @@ class Board():
             moves[m] = self.score_move(m, symbol)
 
         # Return the move that corresponds to the highest value.
-        return max(moves.iteritems(), key=operator.itemgetter(1))[0]
+        return max(moves.items(), key=operator.itemgetter(1))[0]
