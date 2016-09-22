@@ -26,6 +26,7 @@ class TicTacToe():
 
         self.get_first()
         self.playing = True
+        self.winner = None
 
     def get_first(self):
         self.player = random.randint(0, 1)
@@ -42,16 +43,16 @@ class TicTacToe():
 
     def check_state(self):
         # Check the state of board
-        state, line = self.b.find_win()
+        winner, line = self.b.find_win()
 
         # CPU wins, Human wins, Tie, or in progress.
-        #  if state == 'o' or state == 'x':
-        if state in self.PLAYERS:
+        if winner in self.PLAYERS:
             self.playing = False
-            return '{} wins!'.format(state)
+            self.winner = '{} wins!'.format(winner)
+            return line  # Return the line that won, if we want to process it.
         elif len(self.b.get_available_spaces()) == 0:
             self.playing = False
-            return 'Game is tied! Ending.'
+            self.winner = 'Game is tied! Ending.'
 
     def next_player(self):
         self.player = (self.player + 1) % 2

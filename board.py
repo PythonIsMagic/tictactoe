@@ -3,7 +3,6 @@ import math
 import operator
 
 PLACEHOLDER = '.'
-SYMBOLS = {'o': 1, 'x': -1}
 
 
 class Board():
@@ -49,18 +48,28 @@ class Board():
         lines = []
 
         # Columns and Rows
-        for x in range(L):
-            lines.append([self.board[self.length * x + y] for y in range(L)])
-            lines.append([self.board[x + self.length * y] for y in range(L)])
+        for tile in range(L):
+            # Rows
+            lines.append([self.length * tile + y for y in range(L)])
+            # Columns
+            lines.append([tile + self.length * y for y in range(L)])
 
-        lines.append([self.board[i] for i in self.dn_diag])
-        lines.append([self.board[i] for i in self.up_diag])
+        # Diagonals
+        lines.append(self.dn_diag)
+        lines.append(self.up_diag)
 
+        SYMBOLS = {'o': 1, 'x': -1}
         for l in lines:
-            if l.count('x') == L:
-                return 'x', l
-            elif l.count('o') == L:
+            # Do a count on the line
+            c = 0
+            for tile in l:
+                if self.occupied(tile):
+                    c += SYMBOLS[self.board[tile]]
+
+            if c == L:
                 return 'o', l
+            elif c == -L:
+                return 'x', l
 
         return None, None
 
