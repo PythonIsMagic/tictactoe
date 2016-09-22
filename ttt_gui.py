@@ -2,6 +2,7 @@
 from tkinter import *
 from tkinter import ttk
 import ttt
+from playerselect import PlayerSelect
 
 
 class TicTacToeBoard(Frame):
@@ -56,6 +57,11 @@ if __name__ == "__main__":
     root.title("TicTacToe")
     root.config(bg='black')
     root.resizable(width=False, height=False)
+
+    # Get player selection
+    inputDialog = PlayerSelect(root)
+    root.wait_window(inputDialog)
+    print('symbol: {}'.format(inputDialog.selection))
 
     TicTacToeBoard(root)
 
