@@ -58,10 +58,11 @@ class Board():
 
         for l in lines:
             if l.count('x') == L:
-                return 'x'
+                return 'x', l
             elif l.count('o') == L:
-                return 'o'
-        return None
+                return 'o', l
+
+        return None, None
 
     def get_available_spaces(self):
         return [i for i in range(len(self)) if not self.occupied(i)]

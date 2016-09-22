@@ -42,7 +42,7 @@ class TicTacToe():
 
     def check_state(self):
         # Check the state of board
-        state = self.b.find_win()
+        state, line = self.b.find_win()
 
         # CPU wins, Human wins, Tie, or in progress.
         #  if state == 'o' or state == 'x':
