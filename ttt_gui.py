@@ -14,6 +14,8 @@ class TicTacToeBoard(Frame):
         mainframe = ttk.Frame(root, padding=(12, 12, 12, 12))
         mainframe.grid(column=0, row=0, sticky=(N, W, E, S))
 
+        parent.bind('<Escape>', lambda x: self.quit())  # Quick exit
+
         self.symbol = game.sym()
         self.strVars = [StringVar() for x in range(9)]
 
