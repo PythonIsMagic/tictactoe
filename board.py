@@ -32,11 +32,11 @@ class Board():
 
     def play(self, i, piece):
         if i < 0 or i >= len(self.board):
-            print('The index  is out of bounds!')
+            #  print('The index  is out of bounds!')
             return False
 
         if self.occupied(i):
-            print('Spot #{} is already played on!'.format(i))
+            #  print('Spot #{} is already played on!'.format(i))
             return False
 
         self.board[i] = piece
