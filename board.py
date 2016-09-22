@@ -45,41 +45,22 @@ class Board():
     def find_win(self):
         # Searches for a complete winning row, column, or diagonal.
         # If one is found, it returns the symbol with the win.
-        # using a counting method: 'o' = +1, 'x' = -1
+        L = self.length
+        lines = []
 
-        dndg_ct, updg_ct = 0, 0
-        counts = []
+        # Columns and Rows
+        for x in range(L):
+            lines.append([self.board[self.length * x + y] for y in range(L)])
+            lines.append([self.board[x + self.length * y] for y in range(L)])
 
-        for x in range(self.length):
-            col_ct, row_ct = 0, 0
+        lines.append([self.board[i] for i in self.dn_diag])
+        lines.append([self.board[i] for i in self.up_diag])
 
-            for y in range(self.length):
-                # Check column
-                col = x + self.length * y
-                col_ct += SYMBOLS.get(self.board[col], 0)
-
-                # Check row
-                row = self.length * x + y
-                row_ct += SYMBOLS.get(self.board[row], 0)
-            counts.append(row_ct)
-            counts.append(col_ct)
-
-            # Check downward diagnonal
-            dndg = x * (self.length + 1)
-            dndg_ct += SYMBOLS.get(self.board[dndg], 0)
-
-            # Check upward diagnonal
-            start = self.length * (self.length - 1)
-            updg = start - x * (self.length - 1)
-            updg_ct += SYMBOLS.get(self.board[updg], 0)
-            counts.append(updg_ct)
-            counts.append(dndg_ct)
-
-        if self.length in counts:
-            return 'o'
-        elif -self.length in counts:
-            return 'x'
-
+        for l in lines:
+            if l.count('x') == L:
+                return 'x'
+            elif l.count('o') == L:
+                return 'o'
         return None
 
     def get_available_spaces(self):
