@@ -11,7 +11,7 @@ class PlayerSelect(Frame):
         self.var = StringVar()
 
         Radiobutton(self, text="O", command=self.onPress, variable=self.var, value='O').pack(anchor=W)
-        Radiobutton(self, text="X", command=self.onPress, variable=self.var, value='O').pack(anchor=W)
+        Radiobutton(self, text="X", command=self.onPress, variable=self.var, value='X').pack(anchor=W)
         self.var.set('O')
 
     def onPress(self):
