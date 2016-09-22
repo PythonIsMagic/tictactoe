@@ -29,6 +29,8 @@ class TicTacToeBoard(Frame):
             for y in range(3):
                 buttons.pop(0).grid(row=x, column=y)
 
+        Label(mainframe, text="You are playing {}".format(game.PLAYERS[ttt.HUMAN])).grid(row=3, column=0, columnspan=3)
+
         # Config padding
         for child in mainframe.winfo_children():
             child.grid_configure(padx=2, pady=2, sticky='EWNS')
@@ -36,21 +38,27 @@ class TicTacToeBoard(Frame):
 
         self.check_cpu()
 
+    def set_player(self):
+        if self.game.player == ttt.CPU:
+            self.player.set("CPU's Turn")
+        elif self.game.player == ttt.HUMAN:
+            self.player.set("HUMAN's Turn")
+
     def check_cpu(self):
         # Check if it is the CPU's turn and run their turn.
         if self.game.player == ttt.CPU:
             cpu_move = self.game.cpu_turn()
             self.strVars[cpu_move].set(self.game.sym())
-            self.assess()
             self.game.next_player()
+            self.assess()
 
     def btn_press(self, i):
         # Human turn
         result = self.game.b.play(i, self.game.sym())
         if result:
             self.strVars[i].set(self.game.sym())
-            self.assess()
             self.game.next_player()
+            self.assess()
             self.check_cpu()
 
     def assess(self):
