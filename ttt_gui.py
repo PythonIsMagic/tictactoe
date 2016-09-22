@@ -23,8 +23,8 @@ class TicTacToeBoard(Frame):
         for i, s in enumerate(self.strVars):
             func = (lambda i=i: self.btn_press(i))
 
-            b = Button(mainframe, textvariable=s, command=func)
-            b.config(height=5, width=10, )
+            b = Button(mainframe, textvariable=s, font='size, 25', command=func)
+            b.config(height=5, width=10)
             self.buttons.append(b)
 
         for x in range(3):
@@ -36,7 +36,6 @@ class TicTacToeBoard(Frame):
         # Config padding
         for child in mainframe.winfo_children():
             child.grid_configure(padx=2, pady=2, sticky='EWNS')
-            child.config(font='size, 15')
 
         self.check_cpu()
 
@@ -66,6 +65,8 @@ class TicTacToeBoard(Frame):
     def assess(self):
         self.game.check_state()
         if self.game.winner:
+            # Change the font size of the dialog box
+            self.option_add('*Dialog.msg.font', 'Helvetica 35')
             messagebox.showinfo("Game over!", self.game.winner)
             exit()  # Immediately exit
 
