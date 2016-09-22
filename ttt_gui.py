@@ -20,7 +20,7 @@ class TicTacToeBoard(Frame):
             func = (lambda i=i: self.btn_press(i))
 
             b = Button(mainframe, textvariable=s, command=func)
-            #  b.config(height=5, width=10, )
+            b.config(height=5, width=10, )
             buttons.append(b)
 
         for x in range(3):
@@ -29,8 +29,8 @@ class TicTacToeBoard(Frame):
 
         # Config padding
         for child in mainframe.winfo_children():
-            child.grid_configure(padx=5, pady=5, sticky='EWNS')
-            child.config(font='size, 20')
+            child.grid_configure(padx=2, pady=2, sticky='EWNS')
+            child.config(font='size, 15')
 
         self.check_cpu()
 
