@@ -40,7 +40,6 @@ class TicTacToeBoard(Frame):
         # Check if it is the CPU's turn and run their turn.
         if self.game.player == ttt.CPU:
             cpu_move = self.game.cpu_turn()
-            #  self.btn_press(cpu_move)
             self.strVars[cpu_move].set(self.game.sym())
             self.assess()
             self.game.next_player()
@@ -58,8 +57,8 @@ class TicTacToeBoard(Frame):
         state = self.game.check_state()
         if state:
             messagebox.showinfo("Game over!", state)
-            self.quit()
-
+            #  self.quit()
+            exit()  # Immediately exit
 
 if __name__ == "__main__":
     root = Tk()
