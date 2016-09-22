@@ -8,13 +8,19 @@
 import board
 import random
 
-SYMBOLS = {0: 'x', 1: 'o'}
-
 
 class TicTacToe():
-    def __init__(self, size):
+    def __init__(self, size, pick='x'):
         # Initialize a new tictactoe board
         self.b = board.Board(size)
+
+        # Set the player symbols
+
+        if pick == 'x':
+            self.PLAYERS = ['x', 'o']
+        else:
+            self.PLAYERS = ['o', 'x']
+
         self.get_first()
         self.playing = True
 
@@ -23,7 +29,7 @@ class TicTacToe():
         self.player = random.randint(0, 1)
 
     def sym(self):
-        return SYMBOLS[self.player]
+        return self.PLAYERS[self.player]
 
     def cpu_turn(self):
         #  move = random.choice(b.get_available_spaces())
