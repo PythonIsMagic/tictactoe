@@ -1,6 +1,7 @@
 # coding: utf-8
 from tkinter import *
 from tkinter import ttk
+from tkinter import messagebox
 from playerselect import PlayerSelect
 import ttt
 
@@ -41,6 +42,7 @@ class TicTacToeBoard(Frame):
             cpu_move = self.game.cpu_turn()
             #  self.btn_press(cpu_move)
             self.strVars[cpu_move].set(self.game.sym())
+            self.assess()
             self.game.next_player()
 
     def btn_press(self, i):
@@ -48,8 +50,15 @@ class TicTacToeBoard(Frame):
         result = self.game.b.play(i, self.game.sym())
         if result:
             self.strVars[i].set(self.game.sym())
+            self.assess()
             self.game.next_player()
             self.check_cpu()
+
+    def assess(self):
+        state = self.game.check_state()
+        if state:
+            messagebox.showinfo("Game over!", state)
+            self.quit()
 
 
 if __name__ == "__main__":
