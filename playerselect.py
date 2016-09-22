@@ -5,12 +5,11 @@ from tkinter import *
 class PlayerSelect(Frame):
     def __init__(self, parent=None, **options):
         Frame.__init__(self, parent, **options)
-
         self.pack()
-        Label(self, text="Select your symbol")
 
         self.var = StringVar()
 
+        Label(self, text="Select your symbol", font='size, 15').pack()
         Radiobutton(self, text="O", font='size, 15', variable=self.var, value='O').pack(anchor=W)
         Radiobutton(self, text="X", font='size, 15', variable=self.var, value='X').pack(anchor=W)
         self.var.set('O')
