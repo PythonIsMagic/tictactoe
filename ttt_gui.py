@@ -1,19 +1,19 @@
 # coding: utf-8
 from tkinter import *
 from tkinter import ttk
-import ttt
 from playerselect import PlayerSelect
+import ttt
 
 
 class TicTacToeBoard(Frame):
-    def __init__(self, parent=None):
+    def __init__(self, parent=None, game=None):
         Frame.__init__(self, parent)
-        self.game = ttt.TicTacToe(size=3)
+        self.game = game
 
         mainframe = ttk.Frame(root, padding=(12, 12, 12, 12))
         mainframe.grid(column=0, row=0, sticky=(N, W, E, S))
 
-        self.symbol = 'X'
+        self.symbol = game.sym()
         self.strVars = [StringVar() for x in range(9)]
 
         buttons = []
@@ -37,7 +37,7 @@ class TicTacToeBoard(Frame):
 
     def check_cpu(self):
         # Check if it is the CPU's turn and run their turn.
-        if self.game.player == 1:
+        if self.game.player == ttt.CPU:
             cpu_move = self.game.cpu_turn()
             #  self.btn_press(cpu_move)
             self.strVars[cpu_move].set(self.game.sym())
@@ -61,8 +61,10 @@ if __name__ == "__main__":
     # Get player selection
     inputDialog = PlayerSelect(root)
     root.wait_window(inputDialog)
+    playerpick = inputDialog.selection
     print('symbol: {}'.format(inputDialog.selection))
 
-    TicTacToeBoard(root)
+    tttgame = ttt.TicTacToe(pick=playerpick)
+    TicTacToeBoard(root, tttgame)
 
     root.mainloop()

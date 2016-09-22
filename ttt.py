@@ -8,15 +8,18 @@
 import board
 import random
 
+HUMAN = 0
+CPU = 1
+
 
 class TicTacToe():
-    def __init__(self, size, pick='x'):
+    def __init__(self, size=3, pick='x'):
         # Initialize a new tictactoe board
         self.b = board.Board(size)
 
         # Set the player symbols
 
-        if pick == 'x':
+        if pick.lower() == 'x':
             self.PLAYERS = ['x', 'o']
         else:
             self.PLAYERS = ['o', 'x']
@@ -25,7 +28,6 @@ class TicTacToe():
         self.playing = True
 
     def get_first(self):
-        # HUMAN = 0, CPU = 1
         self.player = random.randint(0, 1)
 
     def sym(self):
@@ -33,9 +35,9 @@ class TicTacToe():
 
     def cpu_turn(self):
         #  move = random.choice(b.get_available_spaces())
-        move = self.b.best_move('o')
+        move = self.b.best_move(self.PLAYERS[CPU])
 
-        if self.b.play(move, 'o'):
+        if self.b.play(move, self.PLAYERS[CPU]):
             return move
 
     def check_state(self):
@@ -43,7 +45,8 @@ class TicTacToe():
         state = self.b.find_win()
 
         # CPU wins, Human wins, Tie, or in progress.
-        if state == 'o' or state == 'x':
+        #  if state == 'o' or state == 'x':
+        if state in self.PLAYERS:
             self.playing = False
             return '{} wins!'.format(state)
         elif len(self.b.get_available_spaces()) == 0:
@@ -61,27 +64,31 @@ def title():
 def console():
     print(title())
     print('~'*40)
-    print('CPU = \'o\' and human =\'x\'')
+    print('select your symbol: (x/o)')
+    while True:
+        s = input(':>')
+        if s == 'x' or s == 'o':
+            break
 
-    ttt = TicTacToe(size=3)
+    ttt = TicTacToe(size=3, pick=s)
     print('Player {} goes first'.format(ttt.player))
     print('~'*40)
 
     # Game loop
     while ttt.playing:
-        if ttt.player == 0:
+        if ttt.player == HUMAN:
             print('Go human...')
             print(ttt.b)
 
             while True:
                 move = input('>')
-                if ttt.b.play(int(move), 'x'):
+                if ttt.b.play(int(move), ttt.PLAYERS[HUMAN]):
                     break
                 else:
                     print('invalid move, try again')
 
         # If it is the computer's turn, let them compute the best move
-        elif ttt.player == 1:
+        elif ttt.player == CPU:
             # Run computer turn
             print('CPU is thinking...')
             cpu_move = ttt.cpu_turn()
@@ -97,10 +104,6 @@ def console():
             input()
 
         ttt.next_player()
-
-
-def gui():
-    pass
 
 
 if __name__ == "__main__":
