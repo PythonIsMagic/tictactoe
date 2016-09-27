@@ -5,18 +5,27 @@ Author: Erik Lunna
 Date Started: 04-04-16
 Date finished: 09-22-16
 
-Goal:
------------------
-Create a simple working tic tac toe game that plays vs a smart playing
-computer. Implement a text version, then a GUI mouse clickable version.
-
 Summary:
 -----------------
 This project was a revamp of one of the first large projects I ever attempted in
 C++. I was able to take it a few steps further and make the AI cleaner, more 
-object oriented, and I designed a clean GUI for playing. 
+object oriented, and I designed a clean tkinter GUI for playing. 
 
-More wanted features:
+### Prerequisities
+Python 3
+
+## Running:
+### Console run
+``` 
+$ python3 ttt.py
+```
+
+### GUI run
+``` 
+$ python3 ttt_gui.py
+```
+
+todo: Features for future version:
 -----------------
 * Fill the letter to the size of the tile.
 * Highlight the winning row at the end of the game.
