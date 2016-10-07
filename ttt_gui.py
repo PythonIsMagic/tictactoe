@@ -19,17 +19,17 @@ class TicTacToeBoard(Frame):
         self.symbol = game.sym()
         self.strVars = [StringVar() for x in range(9)]
 
-        self.buttons = []
+        buttons = []
         for i, s in enumerate(self.strVars):
             func = (lambda i=i: self.btn_press(i))
 
             b = Button(mainframe, textvariable=s, font='size, 25', command=func)
             b.config(height=5, width=10)
-            self.buttons.append(b)
+            buttons.append(b)
 
         for x in range(3):
             for y in range(3):
-                self.buttons.pop(0).grid(row=x, column=y)
+                buttons.pop(0).grid(row=x, column=y)
 
         Label(mainframe, text="You are playing {}".format(game.PLAYERS[ttt.HUMAN])).grid(row=3, column=0, columnspan=3)
 
@@ -68,6 +68,7 @@ class TicTacToeBoard(Frame):
             # Change the font size of the dialog box
             self.option_add('*Dialog.msg.font', 'Helvetica 35')
             messagebox.showinfo("Game over!", self.game.winner)
+            #  gameover = Label(self, text="Game over!k
             exit()  # Immediately exit
 
 
