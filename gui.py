@@ -21,15 +21,15 @@ class TicTacToeUI(Frame):
 
         buttons = []
         for i, s in enumerate(self.strVars):
-            func = (lambda i=i: self.btn_press(i))
+            on_click = (lambda i=i: self.btn_press(i))
 
-            b = Button(mainframe, textvariable=s, font='size, 25', command=func)
+            b = Button(mainframe, textvariable=s, font='size, 25', command=on_click)
             b.config(height=5, width=10)
             buttons.append(b)
 
-        for x in range(3):
-            for y in range(3):
-                buttons.pop(0).grid(row=x, column=y)
+        for i in range(9):
+            col, row = divmod(i, 3)
+            buttons.pop(0).grid(row=row, column=col)
 
         Label(mainframe, text="You are playing {}".format(self.ttt.PLAYERS[game.HUMAN])).grid(row=3, column=0, columnspan=3)
 
