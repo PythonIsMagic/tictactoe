@@ -25,15 +25,10 @@ class TicTacToeUI(ttk.Frame):
         self.field_vars = [StringVar() for x in range(9)]
 
         for i, field_var in enumerate(self.field_vars):
-            #  on_click = (lambda i=i: self.btn_press(i))
-
-            #  b = Button(mainframe, textvariable=s, font='size, 25', command=on_click)
             b = FieldUI(mainframe, size=TILESIZE, variable=field_var)
             b.bind('<Button-1>', partial(self.on_click, i))
-            #  b.config(height=5, width=10)
 
             col, row = divmod(i, 3)
-            #  buttons.pop(0).grid(row=row, column=col)
             b.grid(row=row, column=col, padx=3, pady=3)
 
         Label(mainframe, text="You are playing {}".format(self.ttt.PLAYERS[game.HUMAN])).grid(row=3, column=0, columnspan=3)
@@ -53,7 +48,6 @@ class TicTacToeUI(ttk.Frame):
 
         if result:
             self.field_vars[i].set(self.ttt.sym())
-            #  field_var.set(next(self.symbols))
             self.assess()
             self.ttt.next_player()
             self.check_cpu()
@@ -78,7 +72,6 @@ class TicTacToeUI(ttk.Frame):
             # Change the font size of the dialog box
             self.option_add('*Dialog.msg.font', 'Helvetica 35')
             messagebox.showinfo("Game over!", self.ttt.winner)
-            #  gameover = Label(self, text="Game over!k
             exit()  # Immediately exit
 
 
