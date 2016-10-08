@@ -13,9 +13,9 @@ class TicTacToeUI(ttk.Frame):
         Frame.__init__(self, parent, background='black')
         self.ttt = _game
         TILESIZE = 50
-        PAD = 12
+        #  PAD = 12
 
-        mainframe = ttk.Frame(parent, padding=(PAD, PAD, PAD, PAD))
+        mainframe = ttk.Frame(parent)
         mainframe.grid(column=0, row=0, sticky=(N, W, E, S))
 
         parent.bind('<Escape>', lambda x: self.quit())  # Quick exit
