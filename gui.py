@@ -17,10 +17,10 @@ class TicTacToeUI(Frame):
         parent.bind('<Escape>', lambda x: self.quit())  # Quick exit
 
         self.symbol = _game.sym()
-        self.strVars = [StringVar() for x in range(9)]
+        self.field_vars = [StringVar() for x in range(9)]
 
         buttons = []
-        for i, s in enumerate(self.strVars):
+        for i, s in enumerate(self.field_vars):
             on_click = (lambda i=i: self.btn_press(i))
 
             b = Button(mainframe, textvariable=s, font='size, 25', command=on_click)
@@ -49,7 +49,7 @@ class TicTacToeUI(Frame):
         # Check if it is the CPU's turn and run their turn.
         if self.ttt.player == game.CPU:
             cpu_move = self.ttt.cpu_turn()
-            self.strVars[cpu_move].set(self.ttt.sym())
+            self.field_vars[cpu_move].set(self.ttt.sym())
             self.assess()
             self.ttt.next_player()
 
@@ -57,7 +57,7 @@ class TicTacToeUI(Frame):
         # Human turn
         result = self.ttt.b.play(i, self.ttt.sym())
         if result:
-            self.strVars[i].set(self.ttt.sym())
+            self.field_vars[i].set(self.ttt.sym())
             self.assess()
             self.ttt.next_player()
             self.check_cpu()
