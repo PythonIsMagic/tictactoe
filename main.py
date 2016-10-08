@@ -5,8 +5,8 @@
 # Purpose: Tic Tac Toe Game
 """
 import sys
-import ttt_console
-import ttt_ui
+import console
+import gui
 
 
 def usage(runfile):
@@ -20,9 +20,9 @@ if __name__ == "__main__":
     if len(sys.argv) != 2:
         usage(sys.argv[0])
     elif sys.argv[1] == 'console':
-        ttt_console.console()
+        console.console()
 
     elif sys.argv[1] == 'gui':
-        ttt_ui.run()
+        gui.run()
     else:
         usage(sys.argv[0])
