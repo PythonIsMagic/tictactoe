@@ -12,7 +12,7 @@ class TicTacToeUI(ttk.Frame):
     def __init__(self, parent=None, _game=None):
         Frame.__init__(self, parent, background='black')
         self.ttt = _game
-        TILESIZE = 50
+        TILESIZE = 75
         #  PAD = 12
 
         mainframe = ttk.Frame(parent)
@@ -29,13 +29,14 @@ class TicTacToeUI(ttk.Frame):
             b.bind('<Button-1>', partial(self.on_click, i))
 
             col, row = divmod(i, 3)
-            b.grid(row=row, column=col, padx=3, pady=3)
+            #  b.grid(row=row, column=col, padx=3, pady=3)
+            b.grid(row=row, column=col)
 
         Label(mainframe, text="You are playing {}".format(self.ttt.PLAYERS[game.HUMAN])).grid(row=3, column=0, columnspan=3)
 
         # Config padding
-        for child in mainframe.winfo_children():
-            child.grid_configure(padx=2, pady=2, sticky='EWNS')
+        #  for child in mainframe.winfo_children():
+            #  child.grid_configure(padx=2, pady=2, sticky='EWNS')
 
         self.check_cpu()
 
