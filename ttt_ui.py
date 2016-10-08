@@ -3,20 +3,20 @@ from tkinter import *
 from tkinter import ttk
 from tkinter import messagebox
 from playerselect import PlayerSelect
-import ttt
+import game
 
 
-class TicTacToeBoard(Frame):
-    def __init__(self, parent=None, game=None):
+class TicTacToeUI(Frame):
+    def __init__(self, parent=None, _game=None):
         Frame.__init__(self, parent)
-        self.game = game
+        self.ttt = _game
 
-        mainframe = ttk.Frame(root, padding=(12, 12, 12, 12))
+        mainframe = ttk.Frame(parent, padding=(12, 12, 12, 12))
         mainframe.grid(column=0, row=0, sticky=(N, W, E, S))
 
         parent.bind('<Escape>', lambda x: self.quit())  # Quick exit
 
-        self.symbol = game.sym()
+        self.symbol = _game.sym()
         self.strVars = [StringVar() for x in range(9)]
 
         buttons = []
@@ -31,7 +31,7 @@ class TicTacToeBoard(Frame):
             for y in range(3):
                 buttons.pop(0).grid(row=x, column=y)
 
-        Label(mainframe, text="You are playing {}".format(game.PLAYERS[ttt.HUMAN])).grid(row=3, column=0, columnspan=3)
+        Label(mainframe, text="You are playing {}".format(self.ttt.PLAYERS[game.HUMAN])).grid(row=3, column=0, columnspan=3)
 
         # Config padding
         for child in mainframe.winfo_children():
@@ -40,39 +40,39 @@ class TicTacToeBoard(Frame):
         self.check_cpu()
 
     def set_player(self):
-        if self.game.player == ttt.CPU:
+        if self.ttt.player == game.CPU:
             self.player.set("CPU's Turn")
-        elif self.game.player == ttt.HUMAN:
+        elif self.ttt.player == game.HUMAN:
             self.player.set("HUMAN's Turn")
 
     def check_cpu(self):
         # Check if it is the CPU's turn and run their turn.
-        if self.game.player == ttt.CPU:
-            cpu_move = self.game.cpu_turn()
-            self.strVars[cpu_move].set(self.game.sym())
+        if self.ttt.player == game.CPU:
+            cpu_move = self.ttt.cpu_turn()
+            self.strVars[cpu_move].set(self.ttt.sym())
             self.assess()
-            self.game.next_player()
+            self.ttt.next_player()
 
     def btn_press(self, i):
         # Human turn
-        result = self.game.b.play(i, self.game.sym())
+        result = self.ttt.b.play(i, self.ttt.sym())
         if result:
-            self.strVars[i].set(self.game.sym())
+            self.strVars[i].set(self.ttt.sym())
             self.assess()
-            self.game.next_player()
+            self.ttt.next_player()
             self.check_cpu()
 
     def assess(self):
-        self.game.check_state()
-        if self.game.winner:
+        self.ttt.check_state()
+        if self.ttt.winner:
             # Change the font size of the dialog box
             self.option_add('*Dialog.msg.font', 'Helvetica 35')
-            messagebox.showinfo("Game over!", self.game.winner)
+            messagebox.showinfo("Game over!", self.ttt.winner)
             #  gameover = Label(self, text="Game over!k
             exit()  # Immediately exit
 
 
-if __name__ == "__main__":
+def run():
     root = Tk()
     root.title("TicTacToe")
     root.config(bg='black')
@@ -83,7 +83,8 @@ if __name__ == "__main__":
     root.wait_window(inputDialog)
     playerpick = inputDialog.selection
 
-    tttgame = ttt.TicTacToe(pick=playerpick)
-    TicTacToeBoard(root, tttgame)
+    tttgame = game.TicTacToe(pick=playerpick)
+
+    TicTacToeUI(root, tttgame)
 
     root.mainloop()
