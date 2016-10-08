@@ -19,17 +19,15 @@ class TicTacToeUI(Frame):
         self.symbol = _game.sym()
         self.field_vars = [StringVar() for x in range(9)]
 
-        buttons = []
         for i, s in enumerate(self.field_vars):
             on_click = (lambda i=i: self.btn_press(i))
 
             b = Button(mainframe, textvariable=s, font='size, 25', command=on_click)
             b.config(height=5, width=10)
-            buttons.append(b)
 
-        for i in range(9):
             col, row = divmod(i, 3)
-            buttons.pop(0).grid(row=row, column=col)
+            #  buttons.pop(0).grid(row=row, column=col)
+            b.grid(row=row, column=col)
 
         Label(mainframe, text="You are playing {}".format(self.ttt.PLAYERS[game.HUMAN])).grid(row=3, column=0, columnspan=3)
 
