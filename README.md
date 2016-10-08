@@ -17,17 +17,13 @@ Python 3
 ## Running:
 ### Console run
 ``` 
-$ python3 ttt.py
+$ python3 main <mode>
 ```
-
-### GUI run
-``` 
-$ python3 ttt_gui.py
-```
+mode is either 'console' or 'gui' depending on which interface you want to use.
 
 todo: Features for future version:
 -----------------
-* Fill the letter to the size of the tile.
+done!: Fill the letter to the size of the tile.
 * Highlight the winning row at the end of the game.
 * Enable support for scoring larger tictactoe boards (4x4 - 10x10)
 * Add a menu - with File, Newgame, exit, Help, credits, etc.
