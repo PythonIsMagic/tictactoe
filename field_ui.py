@@ -13,14 +13,17 @@ class FieldUI(Canvas):
         self.variable.trace('w', self.update_display)
         self.update_display()
 
+    def edge(self):
+        return self.size - self.offset
+
     def update_display(self, *_args):
         self.delete(ALL)
         value = self.variable.get()
         if value == 'x':
-            self.create_line(self.offset, self.offset, self.size - self.offset, self.size - self.offset, width=WIDTH)
-            self.create_line(self.size - self.offset, self.offset, self.offset, self.size - self.offset, width=WIDTH)
+            self.create_line(self.offset, self.offset, self.edge(), self.edge(), width=WIDTH)
+            self.create_line(self.edge(), self.offset, self.offset, self.edge(), width=WIDTH)
         elif value == 'o':
-            self.create_oval(self.offset, self.offset, self.size - self.offset, self.size - self.offset, width=WIDTH)
+            self.create_oval(self.offset, self.offset, self.edge(), self.edge(), width=WIDTH)
 
         elif value != '':
             raise ValueError("only 'x', 'o', and '' allowed")
