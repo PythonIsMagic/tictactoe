@@ -8,13 +8,14 @@ from playerselect import PlayerSelect
 import game
 
 
-class TicTacToeUI(Frame):
+class TicTacToeUI(ttk.Frame):
     def __init__(self, parent=None, _game=None):
-        Frame.__init__(self, parent)
+        Frame.__init__(self, parent, background='black')
         self.ttt = _game
         TILESIZE = 50
+        PAD = 12
 
-        mainframe = ttk.Frame(parent, padding=(12, 12, 12, 12))
+        mainframe = ttk.Frame(parent, padding=(PAD, PAD, PAD, PAD))
         mainframe.grid(column=0, row=0, sticky=(N, W, E, S))
 
         parent.bind('<Escape>', lambda x: self.quit())  # Quick exit
@@ -33,7 +34,7 @@ class TicTacToeUI(Frame):
 
             col, row = divmod(i, 3)
             #  buttons.pop(0).grid(row=row, column=col)
-            b.grid(row=row, column=col, padx=1, pady=2)
+            b.grid(row=row, column=col, padx=3, pady=3)
 
         Label(mainframe, text="You are playing {}".format(self.ttt.PLAYERS[game.HUMAN])).grid(row=3, column=0, columnspan=3)
 

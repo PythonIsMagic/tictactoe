@@ -5,7 +5,7 @@ WIDTH = 4
 
 class FieldUI(Canvas):
     def __init__(self, parent, size, variable):
-        Canvas.__init__(self, parent, width=size, height=size)
+        Canvas.__init__(self, parent, width=size, height=size, borderwidth=2, relief=GROOVE)
         self.size = size
         self.offset = int(size * .10)
 
