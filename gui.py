@@ -1,7 +1,9 @@
 # coding: utf-8
+from functools import partial
 from tkinter import *
 from tkinter import ttk
 from tkinter import messagebox
+from field_ui import FieldUI
 from playerselect import PlayerSelect
 import game
 
@@ -10,6 +12,7 @@ class TicTacToeUI(Frame):
     def __init__(self, parent=None, _game=None):
         Frame.__init__(self, parent)
         self.ttt = _game
+        TILESIZE = 50
 
         mainframe = ttk.Frame(parent, padding=(12, 12, 12, 12))
         mainframe.grid(column=0, row=0, sticky=(N, W, E, S))
@@ -17,17 +20,20 @@ class TicTacToeUI(Frame):
         parent.bind('<Escape>', lambda x: self.quit())  # Quick exit
 
         self.symbol = _game.sym()
+
         self.field_vars = [StringVar() for x in range(9)]
 
-        for i, s in enumerate(self.field_vars):
-            on_click = (lambda i=i: self.btn_press(i))
+        for i, field_var in enumerate(self.field_vars):
+            #  on_click = (lambda i=i: self.btn_press(i))
 
-            b = Button(mainframe, textvariable=s, font='size, 25', command=on_click)
-            b.config(height=5, width=10)
+            #  b = Button(mainframe, textvariable=s, font='size, 25', command=on_click)
+            b = FieldUI(mainframe, size=TILESIZE, variable=field_var)
+            b.bind('<Button-1>', partial(self.on_click, i))
+            #  b.config(height=5, width=10)
 
             col, row = divmod(i, 3)
             #  buttons.pop(0).grid(row=row, column=col)
-            b.grid(row=row, column=col)
+            b.grid(row=row, column=col, padx=1, pady=2)
 
         Label(mainframe, text="You are playing {}".format(self.ttt.PLAYERS[game.HUMAN])).grid(row=3, column=0, columnspan=3)
 
@@ -36,6 +42,20 @@ class TicTacToeUI(Frame):
             child.grid_configure(padx=2, pady=2, sticky='EWNS')
 
         self.check_cpu()
+
+    def on_click(self, i, _event=None):
+        field_var = self.field_vars[i]
+        if field_var.get():
+            return  # Tile has already been played on.
+
+        result = self.ttt.b.play(i, self.ttt.sym())
+
+        if result:
+            self.field_vars[i].set(self.ttt.sym())
+            #  field_var.set(next(self.symbols))
+            self.assess()
+            self.ttt.next_player()
+            self.check_cpu()
 
     def set_player(self):
         if self.ttt.player == game.CPU:
@@ -50,15 +70,6 @@ class TicTacToeUI(Frame):
             self.field_vars[cpu_move].set(self.ttt.sym())
             self.assess()
             self.ttt.next_player()
-
-    def btn_press(self, i):
-        # Human turn
-        result = self.ttt.b.play(i, self.ttt.sym())
-        if result:
-            self.field_vars[i].set(self.ttt.sym())
-            self.assess()
-            self.ttt.next_player()
-            self.check_cpu()
 
     def assess(self):
         self.ttt.check_state()
