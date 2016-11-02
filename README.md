@@ -1,9 +1,14 @@
 Python Tic Tac Toe
 ===============
+> Console and Tkinter versions of the classic.
 
 Author: Erik Lunna
 Date Started: 04-04-16
-Date finished: 09-22-16
+D\ate finished: 09-22-16
+
+[![NPM Version][npm-image]][npm-url]
+[![Build Status][travis-image]][travis-url]
+[![Downloads Stats][npm-downloads]][npm-url]
 
 Summary:
 -----------------
