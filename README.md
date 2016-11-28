@@ -2,13 +2,7 @@ Python Tic Tac Toe
 ===============
 > Console and Tkinter versions of the classic.
 
-Author: Erik Lunna
-Date Started: 04-04-16
-D\ate finished: 09-22-16
-
-[![NPM Version][npm-image]][npm-url]
-[![Build Status][travis-image]][travis-url]
-[![Downloads Stats][npm-downloads]][npm-url]
+![](screenshot.png)
 
 Summary:
 -----------------
@@ -26,9 +20,29 @@ $ python3 main <mode>
 ```
 mode is either 'console' or 'gui' depending on which interface you want to use.
 
-todo: Features for future version:
+
+## Release History
+* 0.0.1
+
+## Meta
+Author: Erik Lunna
+Date Started: 04-04-16
+Date finished: 09-22-16
+Socials – [@hackponies](https://twitter.com/hackponies) – eslunna@gmail.com
+[https://github.com/lunatunez/tictactoe](https://github.com/lunatunez/)
+
+## Contributors
+
+* How they can dive into the project (issue trackers, IRC, twitter accounts)
+* Testing, bug hunting
+
+## License
+
+Distributed under the XYZ license. See ``LICENSE.txt`` for more information.
+
+
+## TODO
 -----------------
-done!: Fill the letter to the size of the tile.
 * Highlight the winning row at the end of the game.
 * Enable support for scoring larger tictactoe boards (4x4 - 10x10)
 * Add a menu - with File, Newgame, exit, Help, credits, etc.
