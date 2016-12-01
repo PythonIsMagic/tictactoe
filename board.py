@@ -1,3 +1,6 @@
+"""
+  " Manages the Tic Tac Toe board
+  """
 from __future__ import print_function
 import math
 import operator
@@ -5,7 +8,8 @@ import operator
 PLACEHOLDER = '.'
 
 
-class Board():
+class Board(object):
+    """ Standard 3x3 Tic Tac Toe board """
     def __init__(self, size=3):
         self.board = [x for x in range(size ** 2)]
         self.length = int(math.sqrt(len(self.board)))
@@ -30,6 +34,7 @@ class Board():
         return self.board[index] in ['x', 'o']
 
     def play(self, i, piece):
+        """ Places a player's symbol on the given index of the board. """
         if i < 0 or i >= len(self.board):
             #  print('The index  is out of bounds!')
             return False
@@ -42,6 +47,7 @@ class Board():
         return True
 
     def find_win(self):
+        """ Determines if a player has a winning line on the board. """
         # Searches for a complete winning row, column, or diagonal.
         # If one is found, it returns the symbol with the win.
         L = self.length
@@ -93,6 +99,9 @@ class Board():
         return [self.board[i] for i in self.dn_diag]
 
     def associated_lines(self, move):
+        """ Gets a position on the board and returns the row, column, and
+            diagonals that move is on.
+        """
         lines = []
         lines.append(self.get_row(move))
         lines.append(self.get_col(move))
@@ -106,13 +115,13 @@ class Board():
         return lines
 
     def score_move(self, move, symbol):
-        # Get all the lines associated with a move
+        """ Calculate the value of a move. """
         # Check that the move isn't already occupied
-
         if self.occupied(move):
             print('Spot #{} is already played on!'.format(move))
             return -1
 
+        # Get all the lines associated with a move
         lines = self.associated_lines(move)
         scores = [self.score_line(l, symbol) for l in lines]
 
@@ -121,6 +130,9 @@ class Board():
         return sum(scores)
 
     def score_line(self, line, symbol):
+        """ Calculate the value of a line. The value is measured by how much it
+            contributes to winning or blocking the opponent.
+        """
         if symbol == 'o':
             opp = line.count('x')
         else:
@@ -148,6 +160,7 @@ class Board():
             return 30
 
     def best_move(self, symbol):
+        """ Returns the highest value move for the given symbol. """
         moves = {}
         for m in self.get_available_spaces():
             moves[m] = self.score_move(m, symbol)
