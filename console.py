@@ -1,3 +1,6 @@
+"""
+  " Console interface for Tic Tac Toe.
+  """
 import game
 
 
@@ -6,6 +9,7 @@ def title():
 
 
 def console():
+    """ Game loop interface for console. """
     print(title())
     print('~'*40)
     print('select your symbol: (x/o)')

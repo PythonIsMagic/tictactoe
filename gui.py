@@ -1,14 +1,18 @@
 # coding: utf-8
+"""
+  " GUI interface for Tic Tac Toe.
+  """
 from functools import partial
-from tkinter import *
-from tkinter import ttk
-from tkinter import messagebox
+# from tkinter import *
+from tkinter import ttk, messagebox, Frame, StringVar, Label, Tk
+from tkinter import N, E, S, W
 from field_ui import FieldUI
 from playerselect import PlayerSelect
 import game
 
 
-class TicTacToeUI(ttk.Frame):
+class TicTacToeUI(Frame):
+    """ GUI Interface """
     def __init__(self, parent=None, _game=None):
         Frame.__init__(self, parent, background='black')
         self.ttt = _game
@@ -22,7 +26,7 @@ class TicTacToeUI(ttk.Frame):
 
         self.symbol = _game.sym()
 
-        self.field_vars = [StringVar() for x in range(9)]
+        self.field_vars = [StringVar() for _ in range(9)]
 
         for i, field_var in enumerate(self.field_vars):
             b = FieldUI(mainframe, size=TILESIZE, variable=field_var)
@@ -77,6 +81,7 @@ class TicTacToeUI(ttk.Frame):
 
 
 def run():
+    """ Runs the game loop for the GUI version """
     root = Tk()
     root.title("TicTacToe")
     root.config(bg='black')

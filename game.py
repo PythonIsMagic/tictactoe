@@ -1,3 +1,6 @@
+"""
+  " Manages the details of a Tic Tac Toe game.
+  """
 import board
 import random
 
@@ -5,7 +8,8 @@ HUMAN = 0
 CPU = 1
 
 
-class TicTacToe():
+class TicTacToe(object):
+    """ Keeps track of the players, pieces, board, and status of the game. """
     def __init__(self, size=3, pick='x'):
         # Initialize a new tictactoe board
         self.b = board.Board(size)
@@ -17,6 +21,7 @@ class TicTacToe():
         else:
             self.PLAYERS = ['o', 'x']
 
+        self.player = -1
         self.get_first()
         self.playing = True
         self.winner = None

@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 """
-# Author: lunatunez
-# Date Created: Mon Apr  4 20:28:29 2016
-# Purpose: Tic Tac Toe Game
+    Author: lunatunez
+    Date Created: Mon Apr  4 20:28:29 2016
+    Purpose: Tic Tac Toe Game
 """
 import sys
 import console
